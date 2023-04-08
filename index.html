@@ -94,9 +94,19 @@ for (var i = 0; i < payButtons.length; i++) {
         } else if (amount == 7500) {
           time = 90;
         }
+ var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log("Data posted to ThingSpeak successfully!");
+            }
+          };
+          xhttp.open("POST", "https://api.thingspeak.com/update?api_key=XSJV9MZD0EHG6XID&field1=" + time, true);
+          xhttp.send();
 
+          // Redirect to success page
+          window.location.href = 'success.html';
        // Show a success message to the user
-alert('Payment successful!');
+          alert('Payment successful!');
 
 // Redirect to ThingSpeak API with time
 window.location.href = 'https://api.thingspeak.com/update?api_key=XSJV9MZD0EHG6XID&field1=' + time;
