@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PayCharge - EV Charging Service</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">PayCharge</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Charging Stations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Charging Plans -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">30-minute charge</h5>
+            <p class="card-text">Price: 25rs</p>
+            <button class="btn btn-primary" data-amount="2500" data-name="30-minute charge" data-description="30-minute charge for your EV">Pay Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">60-minute charge</h5>
+            <p class="card-text">Price: 50rs</p>
+            <button class="btn btn-primary" data-amount="5000" data-name="60-minute charge" data-description="60-minute charge for your EV">Pay Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">90-minute charge</h5>
+            <p class="card-text">Price: 75rs</p>
+            <button class="btn btn-primary" data-amount="7500" data-name="90-minute charge" data-description="90-minute charge for your EV">Pay Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- JavaScript code to handle the payment processing -->
+<script>
+  // Add event listeners to the Pay Now buttons
+  var payButtons = document.querySelectorAll("button[data-amount]");
+for (var i = 0; i < payButtons.length; i++) {
+  payButtons[i].addEventListener("click", function() {
+    var amount = this.getAttribute("data-amount");
+    var name = this.getAttribute("data-name");
+    var description = this.getAttribute("data-description");
+
+    // Create a Razorpay checkout object
+    var options = {
+      "key": "rzp_test_mSJ7wfYBhnFIn8",
+      "amount": amount,
+      "name": name,
+      "description": description,
+      "handler": function(response) {
+        // Post to ThingSpeak on successful payment
+        var time;
+        if (amount == 2500) {
+          time = 30;
+        } else if (amount == 5000) {
+          time = 60;
+        } else if (amount == 7500) {
+          time = 90;
+        }
+
+       // Show a success message to the user
+alert('Payment successful!');
+
+// Redirect to ThingSpeak API with time
+window.location.href = 'https://api.thingspeak.com/update?api_key=OE9ACNB6IHXSYB46&field1=' + time;
+
+
+      },
+        "payment_method": {
+          "methods": ["upi"]
+        }
+      };
+      var rzp = new Razorpay(options);
+
+      // Open the Razorpay checkout modal
+      rzp.open();
+    });
+  }
+</script>
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
