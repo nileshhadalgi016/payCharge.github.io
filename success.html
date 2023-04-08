@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="30;url=index.html">
+  <title>Thank You</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-VrFMYbfJZCOt+Z1tB0HStI9WyYlkpNk42lrR0/VRKwUNEM+AbubgJq3NxtQ2+O1fK9D2oB0zJedzOaE+nOoJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .countdown-container {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .countdown-container span {
+      animation: count-down 30s steps(30) forwards;
+      display: inline-block;
+    }
+    @keyframes count-down {
+      from { width: 100%; }
+      to { width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h1 class="mb-3">Thank You for Using Our Service!</h1>
+            <p class="lead mb-4">We appreciate your business and hope to see you again soon.</p>
+            <div class="countdown-container">
+              Redirecting to <span>index.html</span> in 30 seconds...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
